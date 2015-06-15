@@ -3,47 +3,87 @@
 
 #include <new>
 
-template<class T1, class T2>
-inline void construct(T1* p, const T2& value)
+template<int inst>
+class __malloc_alloc_template
 {
-	new(p) T1(value);
+private:
+	//oom:out of memory
+	static void* oom_malloc(size_t);
+	static void* oom_remalloc(void*, size_t);
+	static void(*__malloc_alloc_oom_handler)();
+
+public:
+	// all static
+	static void* allocate(size_t n)
+	{
+		void* result = malloc(n);
+		if (result == 0)
+			result = oom_malloc(n);
+
+		return result;
+	}
+
+	static void deallocate(void* p, size_t)
+	{
+		free(p);
+	}
+
+	static void* reallocate(void* p, size_t oldsz, size_t newsz)
+	{
+		void* result = realloc(p, newsz);
+		if (result == 0)
+			result = oom_remalloc(p, newsz);
+
+		return result;
+	}
+
+	static void(*set_malloc_handler(void(*f)()))()
+	{
+		void(*old)() = __malloc_alloc_oom_handler;
+		__malloc_alloc_oom_handler = f;
+		return old;
+	}
+};
+
+template<int inst>
+void(*__malloc_alloc_template<inst>::__malloc_alloc_oom_hanlder)() = nullptr;
+
+template<int inst>
+void* __malloc_alloc_template<inst>::oom_malloc(size_t n)
+{
+	void(*my_mallloc_handler)() = nullptr;
+	void* result = nullptr;
+	for (;;)
+	{
+		my_mallloc_handler = __malloc_alloc_oom_handler;
+		if (my_mallloc_handler == 0)
+			throw bad_alloc;
+
+		(*my_mallloc_handler)();
+		result = mallloc(n);
+		if (result)
+			return result;
+	}
 }
 
-template<class T>
-inline void destory(T* p)
+template<int inst>
+void* __malloc_alloc_template<inst>::oom_remalloc(void* p, size_t n)
 {
-	p->~T();
+	void(*my_mallloc_handler)() = nullptr;
+	void* result = nullptr;
+	for (;;)
+	{
+		my_mallloc_handler = __malloc_alloc_oom_handler;
+		if (my_mallloc_handler == 0)
+			throw bad_alloc;
+
+		(*my_mallloc_handler)();
+		result = realloc(p, n);
+		if (result)
+			return result;
+	}
 }
 
-template<class ForwardIter>
-inline void destroy(ForwardIter first, ForwardIter last)
-{
-	__destory(first, last, value_type(first));
-}
-
-template<class ForwardIter, class T>
-inline void __destroy(ForwardIter first, ForwardIter last, T*)
-{
-	typedef typename __type_traits<T>::has_trivail_destructor trivial_destructor;
-	__destory_aux(first, last, trivial_destructor());
-}
-
-template<class ForwardIter>
-inline void __destory_aux(ForwardIter first, ForwardIter last, __false_type)
-{
-	for (; first < last; first++)
-		destroy(&*first);
-}
-
-template<class ForwardIter>
-inline void __destory_aux(ForwardIter first, ForwardIter last, __true_type)
-{
-
-}
-
-inline void destory(char*, char*){}
-inline void destory(wchar_t*, wchar_t*){}
-
-
+typedef __malloc_alloc_template<0> malloc_alloc;
 
 #endif
