@@ -67,6 +67,8 @@
     <ClInclude Include="alloc\alloc.h" />
     <ClInclude Include="alloc\stl_alloc.h" />
     <ClInclude Include="alloc\stl_construct.h" />
+    <ClInclude Include="alloc\stl_default_alloc_template.h" />
+    <ClInclude Include="alloc\stl_malloc_alloc_template.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alloc\alloc.cpp" />

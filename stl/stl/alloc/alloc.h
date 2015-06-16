@@ -46,7 +46,6 @@ public:
 public:
 	pointer allocate(size_type n, void* hint = 0)
 	{
-		std::cout << "start allocate" << std::endl;
 		return _allocate(difference_type(n), pointer(0));
 	}
 

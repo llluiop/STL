@@ -27,6 +27,12 @@
     <ClInclude Include="alloc\stl_construct.h">
       <Filter>alloc</Filter>
     </ClInclude>
+    <ClInclude Include="alloc\stl_malloc_alloc_template.h">
+      <Filter>alloc</Filter>
+    </ClInclude>
+    <ClInclude Include="alloc\stl_default_alloc_template.h">
+      <Filter>alloc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alloc\alloc.cpp">
