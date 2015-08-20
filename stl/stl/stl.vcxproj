@@ -69,10 +69,15 @@
     <ClInclude Include="alloc\stl_construct.h" />
     <ClInclude Include="alloc\stl_default_alloc_template.h" />
     <ClInclude Include="alloc\stl_malloc_alloc_template.h" />
+    <ClInclude Include="alloc\stl_uninitialized.h" />
+    <ClInclude Include="iterator\iterator.h" />
+    <ClInclude Include="traits\traits.h" />
+    <ClInclude Include="vector\vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alloc\alloc.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="vector\vector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

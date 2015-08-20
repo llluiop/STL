@@ -16,6 +16,15 @@
     <Filter Include="alloc">
       <UniqueIdentifier>{dbeedb48-771e-4f9b-bf18-d6052c522917}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vector">
+      <UniqueIdentifier>{4bbc5119-2039-45e9-9897-e0ed0ac96488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="traits">
+      <UniqueIdentifier>{f38f82d9-a1b9-40b1-9244-006d89973a6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iterator">
+      <UniqueIdentifier>{ac3de97f-f3c4-4f9f-a23f-f80acc989ca2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alloc\alloc.h">
@@ -33,6 +42,18 @@
     <ClInclude Include="alloc\stl_default_alloc_template.h">
       <Filter>alloc</Filter>
     </ClInclude>
+    <ClInclude Include="alloc\stl_uninitialized.h">
+      <Filter>alloc</Filter>
+    </ClInclude>
+    <ClInclude Include="vector\vector.h">
+      <Filter>vector</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator\iterator.h">
+      <Filter>iterator</Filter>
+    </ClInclude>
+    <ClInclude Include="traits\traits.h">
+      <Filter>traits</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alloc\alloc.cpp">
@@ -40,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="vector\vector.cpp">
+      <Filter>vector</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
